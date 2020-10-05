@@ -27,6 +27,8 @@ Route::get('/author/{author}','BlogController@author')->name('author');
 
 Route::resource('backend/other','Backend\AdminController');
 Route::resource('backend/categories','Backend\CategoriesController');
+Route::resource('backend/users','Backend\UsersController');
+Route::get('backend/users/{user}','Backend\UsersController@confirm')->name('users.confirm');
 Route::put('/backend/update/{update}', 'Backend\AdminController@solutionUpdate')->name('other.solution');
 Route::put('/backend/other/{other}', 'Backend\AdminController@restore')->name('other.restore');
 Route::delete('/backend/force-destroy/{other}', 'Backend\AdminController@sorao')->name('other.forceDestroy');
