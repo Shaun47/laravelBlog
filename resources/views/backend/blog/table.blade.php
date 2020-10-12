@@ -9,17 +9,34 @@
         </tr>
     </thead>
     <tbody>
+        <?php $request = request(); ?>
+
         @foreach($posts as $post)
 
             <tr>
                 <td>
-                    <a href="{{ route('other.edit', $post->id) }}" class="btn btn-xs btn-default">
-                        <i class="fa fa-edit"></i>
-                    </a>
+
+                    @if(check_user_permissions($request,"AdminController@edit",$post->id))
+                        <a href="{{ route('other.edit', $post->id) }}" class="btn btn-xs btn-default">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    @else
+                        <a href="#" class="btn btn-xs btn-default disabled">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    @endif
+
                     {!! Form::open(['method' => 'DELETE','route' => ['other.destroy',$post->id]]) !!}
-                    <button type="submit"  class="btn btn-xs btn-danger">
-                        <i class="fa fa-times"></i>
-                    </button>
+                    
+                    @if(check_user_permissions($request,"AdminController@destroy",$post->id))
+                        <button type="submit"  class="btn btn-xs btn-danger">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    @else
+                        <button type="submit"  class="btn btn-xs btn-danger disabled">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    @endif
                     {!! Form::close() !!}
                 </td>
                 <td>{{ $post->title }}</td>

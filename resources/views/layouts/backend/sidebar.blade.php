@@ -33,8 +33,16 @@
             <li><a href=" {{route('other.create')}} "><i class="fa fa-circle-o"></i> Add New</a></li>
           </ul>
         </li>
-        <li><a href=" {{route('categories.index')}} "><i class="fa fa-folder"></i> <span>Categories</span></a></li>
-        <li><a href=" {{route('users.index')}} "><i class="fa fa-user"></i> <span>Users</span></a></li>
+        <!-- @role(['admin','editor']) -->
+        @if(check_user_permissions(request(),"Categories@index"))
+          <li><a href=" {{route('categories.index')}} "><i class="fa fa-folder"></i> <span>Categories</span></a></li>
+        @endif
+          <!-- @endrole -->
+        @if(check_user_permissions(request(),"Users@index"))
+        <!-- @role('admin') -->
+          <li><a href=" {{route('users.index')}} "><i class="fa fa-user"></i> <span>Users</span></a></li>
+        <!-- @endrole -->
+        @endif
       </ul>
     </section>
     <!-- /.sidebar -->

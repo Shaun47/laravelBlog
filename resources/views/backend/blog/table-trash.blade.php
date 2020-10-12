@@ -9,19 +9,29 @@
         </tr>
     </thead>
     <tbody>
+        <?php $request = request(); ?>
         @foreach($posts as $post)
 
             <tr>
                 <td>
                 {!! Form::open(['method' => 'PUT', 'route' => ['other.restore',$post->id]]) !!}
-
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i> </button>
+                @if(check_user_permissions($request,"AdminController@restore",$post->id))
+                    <button type="submit" class="btn btn-primary "><i class="fa fa-refresh"></i> </button>
+                @else    
+                    <button type="submit" class="btn btn-primary disabled"><i class="fa fa-refresh"></i> </button>
+                @endif
                 {!! Form::close() !!}
                     
                     {!! Form::open(['method' => 'DELETE','route' => ['other.forceDestroy',$post->id]]) !!}
+                    @if(check_user_permissions($request,"AdminController@forceDestroy",$post->id))
                     <button type="submit"  class="btn btn-xs btn-danger">
                         <i class="fa fa-trash"></i>
                     </button>
+                    @else
+                    <button type="submit"  class="btn btn-xs btn-danger disabled">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    @endif
                     {!! Form::close() !!}
                 </td>
                 <td>{{ $post->title }}</td>
