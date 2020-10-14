@@ -39,6 +39,10 @@ class AdminController extends backendController
             $posts = Post::draft()->latest()->paginate(8);
             $postCount = Post::count();
         }
+        elseif($status == "own"){
+            $posts = $request->user()->posts()->latest()->paginate(8);
+            $postCount = $request->user()->posts()->count();
+        }
         else{
             $posts = Post::latest()->paginate(8);
             $postCount = Post::count();
@@ -53,6 +57,7 @@ class AdminController extends backendController
     private function statusList()
     {
         return [
+            'own'       => auth()->user()->posts()->count(),
             'all'       => Post::count(),
             'published' => Post::published()->count(),
             'scheduled' => Post::scheduled()->count(),

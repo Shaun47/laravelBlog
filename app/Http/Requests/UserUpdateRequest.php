@@ -32,7 +32,8 @@ class UserUpdateRequest extends FormRequest
             'name' => 'required',
             'slug' => 'required',
             'email' => 'email|required|unique:users,email,'.$this->route("user"),
-            'password' => 'required_with:password_confirmation|confirmed'
+            'password' => 'required_with:password_confirmation|confirmed',
+            'role' => 'required'
         ];
     }
 }

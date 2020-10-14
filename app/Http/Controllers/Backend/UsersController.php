@@ -44,7 +44,8 @@ class UsersController extends backendController
         $request->password = bcrypt($request->password);
         // return $request->all();
         // $this->admin->password = Hash::make($request->input('password'));
-        User::create($request->all());
+        $user = User::create($request->all());
+        $user->attachRole($request->role);
         // $request->user()->fill([
         //     'password' => bcrypt($request->password)
         // ])->save();
@@ -83,7 +84,10 @@ class UsersController extends backendController
      */
     public function update(Requests\UserUpdateRequest $request, $id)
     {
-        User::findOrFail($id)->update($request->all());
+        $user = User::findOrFail($id);
+        $user->detachRole($user->role);
+        $user->attachRole($request->role);
+        $user->update($request->all());
         return redirect(route('users.index'))->with('message','User was updated successfully');
     }
 
