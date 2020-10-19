@@ -32,7 +32,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->roles->first()->display_name }}</td>
                
-            </tr>
+            </tr> 
 
         @endforeach
     </tbody>

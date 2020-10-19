@@ -6,6 +6,7 @@
                             <span class="help-block">{{ $errors->first('name') }}</span>
                         @endif
                     </div>
+
                     <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                         {!! Form::label('slug') !!}
                         {!! Form::text('slug', null, ['class' => 'form-control']) !!}
