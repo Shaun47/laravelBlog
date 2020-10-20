@@ -18,8 +18,8 @@ Route::get('/home', 'Backend\HomeController@index')->name('home');
 
 
 
-
-Route::get('/', 'BlogController@index')->name('blog');
+Route::get('/','FrontPageController@index')->name('home');
+Route::get('/blog', 'BlogController@index')->name('blog');
 
 Route::get('/blog/{post}','BlogController@show')->name('blog.show');
 Route::get('/category/{category}','BlogController@category')->name('category');
